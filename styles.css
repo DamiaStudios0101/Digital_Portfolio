@@ -227,4 +227,5 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
     .projects-grid { grid-template-columns: 1fr; }
     .nav-content { padding: 0 20px; }
     .modal-close { right: 0; top: -50px; }
+    .card-video { opacity: 1; }
 }
