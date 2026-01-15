@@ -25,19 +25,68 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
 }
 
 .nav-content { 
-    max-width: 1200px; 
-    width: 100%; 
-    margin: 0 auto; 
-    padding: 0 40px; /* Provides the left margin for header text */
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+
+    display: flex;
+    justify-content: flex-end; /* 👉 moves nav items to the right */
+    align-items: center;
 }
 
-.nav-links { display: flex; gap: 30px; }
+.nav-links { display: flex; gap: 30px; align-items: center; }
 
 .nav-item { 
-    background: none; border: none; color: #ffffff; font-size: 16px; 
-    font-weight: 800; cursor: pointer; text-decoration: none; 
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+
+    font-family: inherit;   /* ⭐ */
+    line-height: 1;         /* ⭐ */
+    display: flex;
+    align-items: center;
+    position: relative;
 }
-.nav-item.active { border-bottom: 3px solid #ffffff; padding-bottom: 5px; }
+.nav-item.active { color: #ffffff; }
+
+.resume-btn {
+    border: 2px solid #ffffff;   /* default border */
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #ffffff;              /* default text color */
+    background: transparent;
+    text-decoration: none;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.resume-btn:hover {
+    border-color: #ff5858;       /* hover border color */
+    color: #ff5858;              /* hover text color */
+}
+
+.nav-item:not(.resume-btn)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background-color: #ff5858;
+    transition: width 0.3s ease;
+}
+
+.nav-item:not(.resume-btn):hover {
+    color: #ff5858;
+}
+
+.nav-item:not(.resume-btn):hover::after {
+    width: 100%;
+}
 
 /* LAYOUT & SIDEBAR */
 .portfolio-container { 
@@ -47,10 +96,26 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
 .sidebar { width: 260px; }
 .logo-container { width: 240px; height: 240px; border-radius: 50%; border: 1px solid var(--border-grey); overflow: hidden; margin-bottom: 25px; }
 .profile-pic { width: 100%; height: 100%; object-fit: contain; }
-.profile-name { font-size: 28px; margin-bottom: 12px; }
+.profile-name { font-size: 25px; margin-bottom: 12px; }
+.profile-achievement { font-size: 18px; margin-bottom: 12px; }
+.achievements-list {font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 15px;}
+.profile-webtools { font-size: 18px; margin-bottom: 12px; }
 
 /* Tagline made smaller */
-.profile-bio { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.profile-bio { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;}
+
+.profile-achievement { font-size: 18px; margin-bottom: 12px; }
+.achievements-list {font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;}
+
+.profile-webtools { font-size: 18px; margin-bottom: 12px; margin-top: 12px }
+.profile-gamedevtools { font-size: 18px; margin-bottom: 12px; }
+.list {
+    margin-left: 10px; font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 15px;}
+.icon {
+    width: 15px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
 
 /* PROJECTS SECTION */
 .main-content { flex: 1; }
@@ -69,8 +134,42 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
     background: var(--card-bg); border: 1px solid var(--border-grey); border-radius: 8px; 
     overflow: hidden; text-decoration: none; display: block; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
+
 .project-card:hover { border-color: var(--nav-blue); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.card-image { height: 160px; background-size: cover; background-position: center; background-color: #000; }
+
+.card-image { position: relative;
+    height: 200px;
+    overflow: hidden;
+    background-color: #000; }
+
+.card-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .card-video {
+    opacity: 1;
+}
+
+.project-card:hover .card-thumb {
+    opacity: 0;
+}
+
 .card-details { padding: 18px; }
 .project-title { color: var(--github-blue); font-weight: 600; font-size: 15px; display: block; margin-bottom: 8px; font-weight: 800; }
 .project-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 15px; }
