@@ -107,7 +107,7 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
 .profile-achievement { font-size: 18px; margin-bottom: 12px; }
 .achievements-list {font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;}
 
-.profile-webtools { font-size: 18px; margin-bottom: 12px; margin-top: 12px }
+.profile-webtools { font-size: 18px; margin-bottom: 12px; }
 .profile-gamedevtools { font-size: 18px; margin-bottom: 12px; }
 .list {
     margin-left: 10px; font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 15px;}
@@ -116,6 +116,8 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
     vertical-align: middle;
     margin-right: 5px;
 }
+
+.tools-wrapper { display: block; }
 
 /* PROJECTS SECTION */
 .main-content { flex: 1; }
@@ -227,5 +229,29 @@ body { background: var(--bg-dark); color: var(--text-white); font-family: -apple
     .projects-grid { grid-template-columns: 1fr; }
     .nav-content { padding: 0 20px; }
     .modal-close { right: 0; top: -50px; }
-    .card-video { opacity: 1; }
+    .tools-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        text-align: center; /* centers headings too */
+    }
+
+    .tools-section h1 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* Center all list items */
+    .tools-section .list {
+        display: flex;
+        justify-content: center; /* horizontal center */
+        align-items: center;     /* vertical alignment with icon */
+        gap: 6px;                /* space between icon and text */
+        font-size: 14px;
+    }
+
+    .tools-section .list img.icon {
+        width: 18px;
+        height: 18px;
+    }
 }
