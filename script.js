@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.project-card').forEach(card => {
+    const cards = document.querySelectorAll('.project-card');
+    let activeVideo = null;
+    let activeCard = null;
+
+    cards.forEach(card => {
         const video = card.querySelector('.card-video');
         if (!video) return;
-
-        let tappedOnce = false;
 
         // DESKTOP hover
         card.addEventListener('mouseenter', () => {
             if (window.innerWidth <= 768) return;
+
+            stopActiveVideo();
+
+            activeVideo = video;
+            activeCard = card;
 
             video.currentTime = 0;
             video.style.opacity = '1';
@@ -16,26 +23,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.addEventListener('mouseleave', () => {
             if (window.innerWidth <= 768) return;
-
-            video.pause();
-            video.currentTime = 0;
-            video.style.opacity = '0';
+            stopActiveVideo();
         });
 
         // MOBILE tap
         card.addEventListener('click', (e) => {
             if (window.innerWidth > 768) return;
 
-            if (!tappedOnce) {
-                e.preventDefault(); // stop link
-                tappedOnce = true;
+            if (activeCard !== card) {
+                e.preventDefault(); // prevent link navigation
 
-                video.style.opacity = '1';
+                stopActiveVideo();
+
+                activeVideo = video;
+                activeCard = card;
+
                 video.currentTime = 0;
+                video.style.opacity = '1';
                 video.play();
-
-                setTimeout(() => tappedOnce = false, 3000);
             }
         });
     });
+
+    function stopActiveVideo() {
+        if (!activeVideo) return;
+
+        activeVideo.pause();
+        activeVideo.currentTime = 0;
+        activeVideo.style.opacity = '0';
+
+        activeVideo = null;
+        activeCard = null;
+    }
 });
